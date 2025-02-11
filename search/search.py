@@ -88,8 +88,27 @@ def depthFirstSearch(problem: SearchProblem) -> List[Directions]:
     print("Start:", problem.getStartState())
     print("Is the start a goal?", problem.isGoalState(problem.getStartState()))
     print("Start's successors:", problem.getSuccessors(problem.getStartState()))
+    
     """
+ 
+    
     "*** YOUR CODE HERE ***"
+    stack = util.Stack()
+    start = problem.getStartState()
+    visited = []
+
+    stack.push((start,[])) # node and path tuple, the path will keep changing evertime you push a node bc itll add the move to that node
+
+    while not stack.isEmpty():
+        current, path = stack.pop()
+        if current not in visited:
+            visited.append(current)
+            if problem.isGoalState(current):
+                return path
+            for next, move, cost in problem.getSuccessors(current): #cost is irrelevant here but it gave me a "too many vals to unpack" error 
+                stack.push((next, path + [move]))
+    
+
     util.raiseNotDefined()
 
 def breadthFirstSearch(problem: SearchProblem) -> List[Directions]:
