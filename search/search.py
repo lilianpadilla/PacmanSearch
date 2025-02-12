@@ -84,7 +84,7 @@ def depthFirstSearch(problem: SearchProblem) -> List[Directions]:
 
     To get started, you might want to try some of these simple commands to
     understand the search problem that is being passed in:
-
+    
     print("Start:", problem.getStartState())
     print("Is the start a goal?", problem.isGoalState(problem.getStartState()))
     print("Start's successors:", problem.getSuccessors(problem.getStartState()))
@@ -110,7 +110,7 @@ def depthFirstSearch(problem: SearchProblem) -> List[Directions]:
     
 
     util.raiseNotDefined()
-
+    
 def breadthFirstSearch(problem: SearchProblem) -> List[Directions]:
     """Search the shallowest nodes in the search tree first."""
     "*** YOUR CODE HERE ***"
@@ -119,7 +119,34 @@ def breadthFirstSearch(problem: SearchProblem) -> List[Directions]:
 def uniformCostSearch(problem: SearchProblem) -> List[Directions]:
     """Search the node of least total cost first."""
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+
+    from util import PriorityQueue
+
+    frontier = PriorityQueue()
+    start = problem.getStartState()
+    frontier.push((start, []), 0)
+
+    cameFrom = {}
+    cost_so_far = {}
+
+    cameFrom[start] = None
+    cost_so_far[start] = 0
+
+    while not frontier.isEmpty():
+        current, path = frontier.pop()
+
+        if problem.isGoalState(current):
+            return path
+        
+        for successor, action, stepCost in problem.getSuccessors(current):
+            newCost = cost_so_far[current] + stepCost
+            if successor not in cost_so_far or newCost < cost_so_far[successor]:
+                cost_so_far[successor] = newCost
+                priority = newCost
+                frontier.push((successor, path + [action]), priority)
+                cameFrom[successor] = current
+    return []
+
 
 def nullHeuristic(state, problem=None) -> float:
     """
