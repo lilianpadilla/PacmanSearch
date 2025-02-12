@@ -453,6 +453,16 @@ def foodHeuristic(state: Tuple[Tuple, List[List]], problem: FoodSearchProblem):
     """
     position, foodGrid = state
     "*** YOUR CODE HERE ***"
+    # position of the PacMan of the form (x, y) 
+    # foodGrid.asList(): returns a list of the food coordinates
+    # walls = state.getWalls(); if walls[x][y] == True: to check if there is a wall at (x, y)
+    # problem.walls: returns a Grid of where the walls are
+    # problem.walls.asList(): returns a list of wall coordinates
+
+    # a food pellet cannot have the same coordinates as a wall
+    
+    # write a heuristic function that will guess the remaining cost of the successor states
+
     return 0
 
 
