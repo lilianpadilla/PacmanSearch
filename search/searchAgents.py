@@ -463,7 +463,21 @@ def foodHeuristic(state: Tuple[Tuple, List[List]], problem: FoodSearchProblem):
     
     # write a heuristic function that will guess the remaining cost of the successor states
 
-    return 0
+    from util import manhattanDistance
+
+    if not foodGrid.asList():
+        return 0
+
+    # FIRST ATTEMPT
+    # distances = []
+    # for i in foodGrid.asList():
+    #     distances.append(manhattanDistance(position, i))
+        
+    estimates = [0]
+    for food in foodGrid.asList():
+        estimates.append(mazeDistance(position,food,problem.startingGameState))
+    
+    return max(estimates)
 
 
 class ClosestDotSearchAgent(SearchAgent):
