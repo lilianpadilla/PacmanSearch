@@ -295,15 +295,13 @@ class CornersProblem(search.SearchProblem):
         Returns the start state (in your state space, not the full Pacman state
         space)
         """
-        "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        return (self.startingPosition, tuple())
 
     def isGoalState(self, state: Any):
         """
         Returns whether this search state is a goal state of the problem.
         """
-        "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        return len(state[1]) == 4
 
     def getSuccessors(self, state: Any):
         """
@@ -317,6 +315,8 @@ class CornersProblem(search.SearchProblem):
         """
 
         successors = []
+        x,y = state[0]
+        cornersReached = set(state[1])
         for action in [Directions.NORTH, Directions.SOUTH, Directions.EAST, Directions.WEST]:
             # Add a successor state to the successor list if the action is legal
             # Here's a code snippet for figuring out whether a new position hits a wall:
@@ -326,6 +326,18 @@ class CornersProblem(search.SearchProblem):
             #   hitsWall = self.walls[nextx][nexty]
 
             "*** YOUR CODE HERE ***"
+            dx, dy = Actions.directionToVector(action)
+            nextx, nexty = int(x + dx), int(y + dy)
+            hitsWall = self.walls[nextx][nexty]
+
+            if not hitsWall:
+                nextPos = (nextx, nexty)
+                succ = set(cornersReached)
+
+                if nextPos in self.corners and nextPos not in succ:
+                    succ.add(nextPos)
+
+                successors.append(((nextPos, tuple(succ)), action, 1))
 
         self._expanded += 1 # DO NOT CHANGE
         return successors
@@ -358,11 +370,23 @@ def cornersHeuristic(state: Any, problem: CornersProblem):
     shortest path from the state to a goal of the problem; i.e.  it should be
     admissible.
     """
-    corners = problem.corners # These are the corner coordinates
-    walls = problem.walls # These are the walls of the maze, as a Grid (game.py)
+    corners = problem.corners
+    walls = problem.walls
 
     "*** YOUR CODE HERE ***"
-    return 0 # Default to trivial solution
+    xyPos = state[0]
+    visited = state[1]
+    
+    if len(visited) == len(corners):
+        return 0
+        
+    manhattan = []
+    for corner in corners:
+        if corner not in visited:
+            distance = abs(xyPos[0] - corner[0]) + abs(xyPos[1] - corner[1])
+            manhattan.append(distance)
+    
+    return max(manhattan)
 
 
 
