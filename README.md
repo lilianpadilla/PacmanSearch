@@ -37,7 +37,7 @@ You can test different search algorithms using the following commands:
   ```sh
   python pacman.py -l mediumMaze -p SearchAgent -a fn=ucs
   ```
-- **A* Search (A*):**
+- **A* Search (A\*):**
   ```sh
   python pacman.py -l mediumMaze -p SearchAgent -a fn=astar,heuristic=manhattanHeuristic
   ```
@@ -46,7 +46,7 @@ You can test different search algorithms using the following commands:
 - Depth-First Search (DFS)
 - Breadth-First Search (BFS)
 - Uniform Cost Search (UCS)
-- A* Search (A*) with heuristics
+- **A* Search (A\*) with heuristics**
 
 ## Files Description
 - `search.py` – Implementation of search algorithms
