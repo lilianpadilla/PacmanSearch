@@ -14,8 +14,8 @@ This project is part of the UC Berkeley AI course and focuses on implementing se
 ## Installation & Setup
 1. Clone the repository:
    ```sh
-   git clone https://github.com/your-repo/pacman-search.git
-   cd pacman-search
+   https://github.com/lilianpadilla/PacmanSearch.git
+   cd PacmanSearch
    ```
 2. Ensure you have Python 3 installed.
 3. Run the project using:
